@@ -34,4 +34,9 @@ public class WebSocketController {
     public String getWebSocket(){
         return "WebSocket";
     }
+
+    @RequestMapping("/web")
+    public String getWeb(){
+        return "web";
+    }
 }

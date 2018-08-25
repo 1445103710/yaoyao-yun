@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.cust.dao.FCustDao">
+
+	<select id="get" resultType="com.bootdo.cust.domain.FCustDO">
+		select `user_id`,`user_name`,`email`,`phonenumber`,`sex`,`picture`,`status`,`del_flag`,`login_date`,`create_by`,`create_time`,`update_by`,`update_time`,`remark` from tf_f_cust where user_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.cust.domain.FCustDO">
+		select `user_id`,`user_name`,`email`,`phonenumber`,`sex`,`picture`,`status`,`del_flag`,`login_date`,`create_by`,`create_time`,`update_by`,`update_time`,`remark` from tf_f_cust
+        <where>  
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="userName != null and userName != ''"> and user_name = #{userName} </if>
+		  		  <if test="email != null and email != ''"> and email = #{email} </if>
+		  		  <if test="phonenumber != null and phonenumber != ''"> and phonenumber = #{phonenumber} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="picture != null and picture != ''"> and picture = #{picture} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+		  		  <if test="loginDate != null and loginDate != ''"> and login_date = #{loginDate} </if>
+		  		  <if test="createBy != null and createBy != ''"> and create_by = #{createBy} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="remark != null and remark != ''"> and remark = #{remark} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by user_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from tf_f_cust
+		 <where>  
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="userName != null and userName != ''"> and user_name = #{userName} </if>
+		  		  <if test="email != null and email != ''"> and email = #{email} </if>
+		  		  <if test="phonenumber != null and phonenumber != ''"> and phonenumber = #{phonenumber} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="picture != null and picture != ''"> and picture = #{picture} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+		  		  <if test="loginDate != null and loginDate != ''"> and login_date = #{loginDate} </if>
+		  		  <if test="createBy != null and createBy != ''"> and create_by = #{createBy} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="remark != null and remark != ''"> and remark = #{remark} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.cust.domain.FCustDO">
+		insert into tf_f_cust
+		(
+			`user_id`, 
+			`user_name`, 
+			`email`, 
+			`phonenumber`, 
+			`sex`, 
+			`picture`, 
+			`status`, 
+			`del_flag`, 
+			`login_date`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`remark`
+		)
+		values
+		(
+			#{userId}, 
+			#{userName}, 
+			#{email}, 
+			#{phonenumber}, 
+			#{sex}, 
+			#{picture}, 
+			#{status}, 
+			#{delFlag}, 
+			#{loginDate}, 
+			#{createBy}, 
+			#{createTime}, 
+			#{updateBy}, 
+			#{updateTime}, 
+			#{remark}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.cust.domain.FCustDO">
+		update tf_f_cust 
+		<set>
+			<if test="userName != null">`user_name` = #{userName}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="phonenumber != null">`phonenumber` = #{phonenumber}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="picture != null">`picture` = #{picture}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}, </if>
+			<if test="loginDate != null">`login_date` = #{loginDate}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="remark != null">`remark` = #{remark}</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="remove">
+		delete from tf_f_cust where user_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from tf_f_cust where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
+</mapper>

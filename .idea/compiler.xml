@@ -7,16 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-boot" />
-        <module name="spring-cloud" />
         <module name="springboot-designpattern" />
         <module name="springboot-eureka" />
         <module name="springboot-pachong" />
         <module name="springboot-server" />
+        <module name="springboot-web" />
         <module name="springboot-websocket" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="springboot-web" target="1.5" />
+      <module name="springboot-cms" target="1.8" />
+      <module name="springboot-crm" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

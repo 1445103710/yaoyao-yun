@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css?v=3.3.6"
+          th:href="@{/css/bootstrap.min.css?v=3.3.6}" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0"
+          th:href="@{/css/font-awesome.css?v=4.4.0}" rel="stylesheet">
+    <link href="/css/plugins/bootstrap-table/bootstrap-table.min.css"
+          th:href="@{/css/plugins/bootstrap-table/bootstrap-table.min.css}"
+          rel="stylesheet">
+    <link href="/css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link href="/css/plugins/jqTreeGrid/jquery.treegrid.css"
+          rel="stylesheet">
+    <!--summernote css -->
+    <link href="/css/plugins/summernote/summernote-0.8.8.css"
+          rel="stylesheet">
+    <link href="css/animate.css" th:href="@{/css/animate.css}"
+          rel="stylesheet">
+    <link href="/css/plugins/chosen/chosen.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" th:href="@{/css/style.css?v=4.1.0}"
+          rel="stylesheet">
+
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script
+            src="/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/js/plugins/validate/messages_zh.min.js"></script>
+    <script src="/js/plugins/jsTree/jstree.min.js"></script>
+    <script src="/js/plugins/jqTreeGrid/jquery.treegrid.min.js"></script>
+    <script src="/js/plugins/jqTreeGrid/jquery.treegrid.extension.js"></script>
+    <script src="/js/plugins/jqTreeGrid/jquery.treegrid.bootstrap3.js"></script>
+    <script src="/js/plugins/chosen/chosen.jquery.js"></script>
+    <script src="/js/plugins/layer/layer.js"></script>
+    <script src="/js/content.js?v=1.0.0"></script>
+    <!--summernote-->
+    <script src="/js/plugins/summernote/summernote.js"></script>
+    <script src="/js/plugins/summernote/summernote-zh-CN.min.js"></script>
+    <script src="/js/ajax-util.js"></script>
+<title>无标题文档</title>
+<style>
+	/*公告栏*/
+img{display: block;}
+p{margin:auto;}
+dl,dd{margin: auto;}
+.gonggao_kuang{width: 400px;height: 430px;overflow: hidden;}
+.gonggao_kuang img{width: 400px;height: 400px;}
+.gonggao_kuang dl{position:relative;}
+.gonggao_kuang p{line-height: 30px;}
+
+</style>
+</head>
+
+<body>
+<br>
+<div class="gonggao_beijing"><a>           </a><img id="images"  height="400" width="300" ><br></div>
+<br>
+<a>           </a>通告：<input id="someinfo" type="text"><br>
+<div id="text">
+<a>           </a>姓名：<input id="userName" type="text"><br>
+<a>           </a>电话：<input id="phonenumber" type="text"><br>
+<a>           </a>性别：<input id="sex" type="text"><br>
+</div>
+<div id="erroText" style="display: none"><h1>服务器异常！！！</h1></div>
+<script>
+var websocket = null;
+
+//判断当前浏览器是否支持WebSocket
+if ('WebSocket' in window) {
+	websocket = new WebSocket("ws://localhost:9011/websocket");
+}
+else {
+	alert('Not support websocket')
+}
+
+//连接发生错误的回调方法
+websocket.onerror = function () {
+	setMessageInnerHTML("error");
+};
+
+//连接成功建立的回调方法
+websocket.onopen = function (event) {
+	//setMessageInnerHTML("open");
+	alert("建立人脸识别通道！！！");
+}
+
+//接收到消息的回调方法
+websocket.onmessage = function (event) {
+	setMessageInnerHTML(event.data);
+}
+
+//连接关闭的回调方法
+websocket.onclose = function () {
+	setMessageInnerHTML("close");
+}
+
+//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+window.onbeforeunload = function () {
+	websocket.close();
+}
+
+//将消息显示在网页上
+function setMessageInnerHTML(text) {
+    //dong();
+	//document.getElementById('dlcust').innerHTML += innerHTML + '<br/>';
+    if(text!=null){
+        $("#erroText").hide();
+        $("#preview-img").show();
+        $("#text").show();
+        var data = JSON.parse(text);
+        console.log(data.code);
+        if (data.code=="0"){
+            $("#someinfo").val("欢迎老用户！");
+            console.log(data);
+            console.log(data.userName);
+            $("#userName").val(data.userName);
+            $("#phonenumber").val(data.phonenumber);
+            $("#sex").val(data.sex);
+            setImg(data.pic);
+        }else {
+            console.log(data);
+            $("#someinfo").val("欢迎新客户！请注意录入会员");
+            $("#userName").val("未知");
+            $("#phonenumber").val("未知");
+            $("#sex").val("未知");
+            setImg(data.pic);
+        }
+    }else {
+        $("#erroText").show();
+        $("#preview-img").hide();
+        $("#text").hide();
+    }
+}
+
+//关闭连接
+function closeWebSocket() {
+	websocket.close();
+}
+
+//发送消息
+function send() {
+	var message = document.getElementById('text').value;
+	websocket.send(message);
+}
+//定义列表滚动函数
+function dong(){
+	$(".gonggao_kuang dl")
+		.animate({top:-430},1000,function(){
+			$(".gonggao_kuang dl").css("top",0);
+		    $(".gonggao_kuang dd:last")
+			 .after($(".gonggao_kuang dd:first"));
+	})
+}
+
+function setImg(addr){
+
+    $("#images").attr("src","pic/getImg?addr="+addr+"");
+}
+function sexset(sex) {
+    if(sex=="1"){
+        return "男";
+    }else if(sex=="2"){
+        return "女";
+    }else {
+        return "未知";
+    }
+}
+//每隔2秒钟，滚动一次
+//setInterval(dong,2000);
+</script>
+</body>
+</html>

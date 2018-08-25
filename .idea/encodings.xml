@@ -2,10 +2,13 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/spring-boot" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-crm" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-crm/springboot-cms" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-designpattern" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-eureka" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-pachong" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot-websocket" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
