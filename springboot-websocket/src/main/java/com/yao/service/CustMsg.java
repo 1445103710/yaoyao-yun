@@ -13,7 +13,7 @@ import java.util.Map;
  **/
 public class CustMsg {
     public static String getMsg(String userId){
-        String url = "http://localhost:8080/cust/fCust/get/"+userId;
+        String url = "http://120.77.254.63:8080/cust/fCust/get/"+userId;
         String info = new String(HttpUtil.doGet(url));
         return info;
     }

@@ -11,6 +11,10 @@
         <option value="$PROJECT_DIR$/springboot-server/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-designpattern/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-websocket/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-zuul/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-yao/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-weixin/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

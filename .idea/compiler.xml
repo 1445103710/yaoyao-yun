@@ -9,10 +9,14 @@
         <module name="spring-boot" />
         <module name="springboot-designpattern" />
         <module name="springboot-eureka" />
+        <module name="springboot-gateway" />
         <module name="springboot-pachong" />
         <module name="springboot-server" />
         <module name="springboot-web" />
         <module name="springboot-websocket" />
+        <module name="springboot-weixin" />
+        <module name="springboot-yao" />
+        <module name="springboot-zuul" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

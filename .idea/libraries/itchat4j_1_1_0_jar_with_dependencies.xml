@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="itchat4j-1.1.0-jar-with-dependencies">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/springboot-weixin/src/main/resources/lib/itchat4j-1.1.0-jar-with-dependencies.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
