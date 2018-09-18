@@ -1,4 +1,4 @@
-//package com.yao.weixin;
+//package com.yao.springbootweixin.itchat4j.weixin;
 //
 ///**
 // * @program: spring-cloud

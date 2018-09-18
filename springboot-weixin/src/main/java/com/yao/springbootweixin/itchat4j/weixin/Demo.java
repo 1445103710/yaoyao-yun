@@ -1,4 +1,4 @@
-//package com.yao.weixin;
+//package com.yao.springbootweixin.itchat4j.weixin;
 //
 //import com.yao.springbootweixin.itchat4j.face.IMsgHandlerFace;
 //import com.yao.springbootweixin.itchat4j.utils.enums.MsgTypeEnum;

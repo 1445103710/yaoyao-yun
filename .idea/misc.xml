@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/springboot-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-yao/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-weixin/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-mybatis/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

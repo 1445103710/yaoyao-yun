@@ -25,19 +25,19 @@ public class WeixinLoginController {
     @RequestMapping("weixin")
     public String loginWeixin(){
         LoginController login = new LoginController();
-        log.info("----->登录开始");
+        log.warn("----->登录开始");
         login.login(qrPath);
         List<String> contactNickNameList = WechatTools.getContactNickNameList();
         StringBuffer stringBuffer = new StringBuffer();
         for (String name:contactNickNameList){
-            log.info("----->获取好友名称");
-            log.info("name---->"+name);
+            log.warn("----->获取好友名称");
+            log.warn("name---->"+name);
             stringBuffer.append("好友姓名："+name);
         }
         List<JSONObject> contactList = WechatTools.getContactList();
         for (JSONObject nameInfo:contactList){
-            log.info("----->获取好友信息");
-            log.info("nameInfo---->"+nameInfo.toJSONString());
+            log.warn("----->获取好友信息");
+            log.warn("nameInfo---->"+nameInfo.toJSONString());
         }
         //MessageTools.sendMsgByNickName("测试","恰年少");
         return stringBuffer.toString();

@@ -9,6 +9,7 @@ import com.yao.springbootweixin.itchat4j.utils.enums.MsgTypeEnum;
 import com.yao.springbootweixin.itchat4j.utils.tools.DownloadTools;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,7 @@ import java.util.Date;
  * @create: 2018-09-17 00:08
  **/
 @Slf4j
+@Component
 public class MsgHandlerFaceImpl implements IMsgHandlerFace{
     @Value("${qrPath}")
     private String qrPath;

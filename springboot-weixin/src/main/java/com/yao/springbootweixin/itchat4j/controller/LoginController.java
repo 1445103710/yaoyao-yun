@@ -25,20 +25,20 @@ public class LoginController {
 	private static com.yao.springbootweixin.itchat4j.core.Core core = com.yao.springbootweixin.itchat4j.core.Core.getInstance();
 	public void login(String qrPath) {
 		if (core.isAlive()) { // 已登陆
-			LOG.info("itchat4j已登陆");
+			LOG.warn("姚尧已登陆");
 			return;
 		}
 		while (true) {
 			for (int count = 0; count < 10; count++) {
-				LOG.info("获取UUID");
+				LOG.warn("获取UUID");
 				while (loginService.getUuid() == null) {
-					LOG.info("1. 获取微信UUID");
+					LOG.warn("1. 获取微信UUID");
 					while (loginService.getUuid() == null) {
 						LOG.warn("1.1. 获取微信UUID失败，两秒后重新获取");
 						SleepUtils.sleep(2000);
 					}
 				}
-				LOG.info("2. 获取登陆二维码图片");
+				LOG.warn("2. 获取登陆二维码图片");
 				if (loginService.getQR(qrPath)) {
 					break;
 				} else if (count == 10) {
@@ -50,38 +50,38 @@ public class LoginController {
 			if (!core.isAlive()) {
 				loginService.login();
 				core.setAlive(true);
-				LOG.info(("登陆成功"));
+				LOG.warn(("登陆成功"));
 				break;
 			}
-			LOG.info("4. 登陆超时，请重新扫描二维码图片");
+			LOG.warn("4. 登陆超时，请重新扫描二维码图片");
 		}
 
-		LOG.info("5. 登陆成功，微信初始化");
+		LOG.warn("5. 登陆成功，微信初始化");
 		if (!loginService.webWxInit()) {
-			LOG.info("6. 微信初始化异常");
+			LOG.warn("6. 微信初始化异常");
 			System.exit(0);
 		}
 
-		LOG.info("6. 开启微信状态通知");
+		LOG.warn("6. 开启微信状态通知");
 		loginService.wxStatusNotify();
 
-		LOG.info("7. 清除。。。。");
+		LOG.warn("7. 清除。。。。");
 		CommonTools.clearScreen();
-		LOG.info(String.format("欢迎回来， %s", core.getNickName()));
+		LOG.warn(String.format("欢迎回来， %s", core.getNickName()));
 
-		LOG.info("8. 开始接收消息");
+		LOG.warn("8. 开始接收消息");
 		loginService.startReceiving();
 
-		LOG.info("9. 获取联系人信息");
+		LOG.warn("9. 获取联系人信息");
 		loginService.webWxGetContact();
 
-		LOG.info("10. 获取群好友及群好友列表");
+		LOG.warn("10. 获取群好友及群好友列表");
 		loginService.WebWxBatchGetContact();
 
-		LOG.info("11. 缓存本次登陆好友相关消息");
+		LOG.warn("11. 缓存本次登陆好友相关消息");
 		com.yao.springbootweixin.itchat4j.api.WechatTools.setUserInfo(); // 登陆成功后缓存本次登陆好友相关消息（NickName, UserName）
 
-		LOG.info("12.开启微信状态检测线程");
+		LOG.warn("12.开启微信状态检测线程");
 		new Thread(new CheckLoginStatusThread()).start();
 	}
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yao.springbootweixin.itchat4j.weixin.dao.FJokeDao">
+
+	<select id="get" resultType="com.yao.springbootweixin.itchat4j.weixin.domain.FJokeDO">
+		select `id`,`joke`,`date`,`flag` from tf_f_joke where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.yao.springbootweixin.itchat4j.weixin.domain.FJokeDO">
+		select `id`,`joke`,`date`,`flag` from tf_f_joke
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="joke != null and joke != ''"> and joke = #{joke} </if>
+		  		  <if test="date != null and date != ''"> and date = #{date} </if>
+		  		  <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from tf_f_joke
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="joke != null and joke != ''"> and joke = #{joke} </if>
+		  		  <if test="date != null and date != ''"> and date = #{date} </if>
+		  		  <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.yao.springbootweixin.itchat4j.weixin.domain.FJokeDO">
+		insert into tf_f_joke
+		(
+			`id`, 
+			`joke`, 
+			`date`, 
+			`flag`
+		)
+		values
+		(
+			#{id}, 
+			#{joke}, 
+			#{date}, 
+			#{flag}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.yao.springbootweixin.itchat4j.weixin.domain.FJokeDO">
+		update tf_f_joke 
+		<set>
+			<if test="joke != null">`joke` = #{joke}, </if>
+			<if test="date != null">`date` = #{date}, </if>
+			<if test="flag != null">`flag` = #{flag}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from tf_f_joke where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from tf_f_joke where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
